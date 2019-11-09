@@ -10,6 +10,9 @@ inputs:
   ftp_password:
     description: 'FTP account password'
     required: true
+  sftp_keyfile:
+    description: 'SFTP SSH Keyfile'
+    required: false
   method:
     description: 'Protocol used to deploy (ftp or sftp)'
     required: false
@@ -37,6 +40,7 @@ runs:
     - ${{ inputs.ftp_server }}
     - ${{ inputs.ftp_username }}
     - ${{ inputs.ftp_password }}
+    - ${{ inputs.sftp_keyfile }}
     - ${{ inputs.method }}
     - ${{ inputs.port }}
     - ${{ inputs.local_dir }}
