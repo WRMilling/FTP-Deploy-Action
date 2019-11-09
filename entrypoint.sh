@@ -13,7 +13,12 @@ WDEFAULT_METHOD=${METHOD:-"ftp"}
 if [ $WDEFAULT_METHOD = "sftp" ]; then
   WDEFAULT_PORT=${PORT:-"22"}
   echo "Establishing SFTP connection..."
-  sshpass -p $FTP_PASSWORD sftp -o StrictHostKeyChecking=no -P $WDEFAULT_PORT $FTP_USERNAME@$FTP_SERVER
+  if  [[ -z "${SFTP_KEYFILE}" ]]; then 
+    echo $SFTP_KEYFILE >> key.tmp
+    set sftp:connect-program "ssh -a -x -i key.tmp"
+  else
+    sshpass -p $FTP_PASSWORD sftp -o StrictHostKeyChecking=no -P $WDEFAULT_PORT $FTP_USERNAME@$FTP_SERVER
+  fi
   echo "Connection established"
 else
   WDEFAULT_PORT=${PORT:-"21"}
