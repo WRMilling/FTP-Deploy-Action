@@ -13,7 +13,7 @@ WDEFAULT_METHOD=${METHOD:-"ftp"}
 if [ $WDEFAULT_METHOD = "sftp" ]; then
   WDEFAULT_PORT=${PORT:-"22"}
   echo "Establishing SFTP connection..."
-  if  [[ -z "${SFTP_KEYFILE}" ]]; then 
+  if  [[ -n "${SFTP_KEYFILE}" ]]; then 
     echo $SFTP_KEYFILE >> key.tmp
     set sftp:connect-program "ssh -a -x -i key.tmp"
   else
